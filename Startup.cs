@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Zamkørsel.Models;
 
 namespace Zamkørsel
 {
@@ -23,6 +26,12 @@ namespace Zamkørsel
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddDbContext<AppDbContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("ZamContext")));
+
+			services.AddIdentity<IdentityUser, IdentityRole>()
+				.AddEntityFrameworkStores<AppDbContext>();
+			
 			services.AddRazorPages();
 		}
 
@@ -42,7 +51,7 @@ namespace Zamkørsel
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
-
+			app.UseAuthentication();
 			app.UseRouting();
 
 			app.UseAuthorization();
