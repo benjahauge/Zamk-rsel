@@ -17,7 +17,7 @@ namespace Zamkørsel.Models
 
 		[Required]
 		[StringLength(30, MinimumLength = 8)]
-		protected string Password { get; set; }
+		public string Password { get; set; }
 
 		[Required]
 		[StringLength(40)]
