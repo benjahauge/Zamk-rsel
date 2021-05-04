@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Zamkørsel.Models;
 
@@ -26,11 +27,14 @@ namespace Zamkørsel
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddMvc(options => options.EnableEndpointRouting = false);
 			services.AddDbContext<AppDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("ZamContext")));
 
 			services.AddIdentity<IdentityUser, IdentityRole>()
 				.AddEntityFrameworkStores<AppDbContext>();
+
+			services.AddMvc().AddXmlSerializerFormatters();
 			
 			services.AddRazorPages();
 		}
@@ -49,17 +53,21 @@ namespace Zamkørsel
 				app.UseHsts();
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 			app.UseStaticFiles();
+			
+			//app.UseRouting();
+
+			//app.UseAuthorization();
 			app.UseAuthentication();
-			app.UseRouting();
-
-			app.UseAuthorization();
-
-			app.UseEndpoints(endpoints =>
+			app.UseMvc(routes =>
 			{
-				endpoints.MapRazorPages();
+				routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
 			});
+			//app.UseEndpoints(endpoints =>
+			//{
+			//	endpoints.MapRazorPages();
+			//});
 		}
 	}
 }
