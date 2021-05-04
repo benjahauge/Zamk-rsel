@@ -10,5 +10,20 @@ namespace Zamkørsel.Models
 	{
 		[Key]
 		public int UserId { get; set; }
+
+		[Required]
+		[StringLength(20)]
+		public string Username { get; set; }
+
+		[Required]
+		[StringLength(30, MinimumLength = 8)]
+		protected string Password { get; set; }
+
+		[Required]
+		[StringLength(40)]
+		public string Email { get; set; }
+
+		[StringLength(11)]
+		public string PhoneNumber { get; set; }
 	}
 }

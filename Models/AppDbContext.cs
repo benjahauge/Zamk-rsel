@@ -22,6 +22,9 @@ namespace Zamkørsel.Models
 
 		public virtual DbSet<User> Users { get; set; }
 
+		public virtual DbSet<Route> Routes { get; set; }
+		public virtual DbSet<Booking> Bookings { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

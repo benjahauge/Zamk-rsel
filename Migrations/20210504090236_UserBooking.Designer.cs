@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zamkørsel.Models;
 
 namespace Zamkørsel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210504090236_UserBooking")]
+    partial class UserBooking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,6 +264,9 @@ namespace Zamkørsel.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("RouteId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("StartPoint")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -273,6 +278,8 @@ namespace Zamkørsel.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("RouteId");
+
+                    b.HasIndex("RouteId1");
 
                     b.ToTable("Routes");
                 });
@@ -293,12 +300,17 @@ namespace Zamkørsel.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Users");
                 });
@@ -371,6 +383,30 @@ namespace Zamkørsel.Migrations
                     b.Navigation("Route");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Zamkørsel.Models.Route", b =>
+                {
+                    b.HasOne("Zamkørsel.Models.Route", null)
+                        .WithMany("Routes")
+                        .HasForeignKey("RouteId1");
+                });
+
+            modelBuilder.Entity("Zamkørsel.Models.User", b =>
+                {
+                    b.HasOne("Zamkørsel.Models.User", null)
+                        .WithMany("Users")
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("Zamkørsel.Models.Route", b =>
+                {
+                    b.Navigation("Routes");
+                });
+
+            modelBuilder.Entity("Zamkørsel.Models.User", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
