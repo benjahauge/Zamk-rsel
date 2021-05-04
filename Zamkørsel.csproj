@@ -14,9 +14,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\EFServices\" />
-    <Folder Include="Services\Interface\" />
-  </ItemGroup>
-
 </Project>
