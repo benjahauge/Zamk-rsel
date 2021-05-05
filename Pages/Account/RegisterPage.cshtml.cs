@@ -6,35 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Zamkørsel.Models;
 using Zamkørsel.Services.Interface;
+using Zamkørsel.ViewModel;
 
 namespace Zamkørsel.Pages.View
 {
     public class RegisterPageModel : PageModel
     {
-	    private IUserService _repo;
+	    [BindProperty]
+		public RegisterViewModel Registration { get; set; }
 
-		[BindProperty]
-		public User User { get; set; }
-
-	    public RegisterPageModel(IUserService repo)
-	    {
-		    _repo = repo;
-	    }
 
         public void OnGet()
         {
-
-        }
-
-        public IActionResult OnPost()
-        {
-	        if (!ModelState.IsValid)
-	        {
-		        return Page();
-	        }
-
-	        _repo.AddUser(User);
-	        return RedirectToPage("Index");
         }
     }
 }
