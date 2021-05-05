@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zamkørsel.Models;
 
 namespace Zamkørsel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210505080151_foreignRoute")]
+    partial class foreignRoute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,14 +224,6 @@ namespace Zamkørsel.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateFrom")
-                        .HasColumnType("date")
-                        .HasColumnName("Date_From");
-
-                    b.Property<DateTime>("DateTo")
-                        .HasColumnType("date")
-                        .HasColumnName("Date_To");
-
                     b.Property<int>("RouteId")
                         .HasColumnType("int");
 
@@ -284,8 +278,6 @@ namespace Zamkørsel.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("RouteId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Routes");
                 });
@@ -372,7 +364,7 @@ namespace Zamkørsel.Migrations
             modelBuilder.Entity("Zamkørsel.Models.Booking", b =>
                 {
                     b.HasOne("Zamkørsel.Models.Route", "Route")
-                        .WithMany("Bookings")
+                        .WithMany()
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -386,22 +378,6 @@ namespace Zamkørsel.Migrations
                     b.Navigation("Route");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Zamkørsel.Models.Route", b =>
-                {
-                    b.HasOne("Zamkørsel.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Zamkørsel.Models.Route", b =>
-                {
-                    b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("Zamkørsel.Models.User", b =>
