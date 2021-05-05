@@ -12,17 +12,19 @@ namespace Zamkørsel.Models
 		public int UserId { get; set; }
 
 		[Required]
-		[StringLength(20)]
+		[StringLength(50)]
 		public string Name { get; set; }
 
-		[Required]
-		[StringLength(20)]
+        
 		public int Age { get; set; }
 
-		[Required]
-        public Type Role { get; set; }
+        [StringLength(50)]
+		public string Address { get; set; }
 
-		[Required]
+        [StringLength(50)]
+		public string Role { get; set; }
+
+		
 		public virtual ICollection<Booking> Bookings { get; set; }
 	}
 }
