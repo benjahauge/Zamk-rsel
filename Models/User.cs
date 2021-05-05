@@ -22,6 +22,7 @@ namespace Zamkørsel.Models
 		[Required]
         public Type Role { get; set; }
 
+		[Required]
 		public virtual ICollection<Booking> Bookings { get; set; }
 	}
 }
