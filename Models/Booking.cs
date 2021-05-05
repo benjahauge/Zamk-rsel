@@ -17,8 +17,8 @@ namespace Zamkørsel.Models
 		public int UserId { get; set; }
 		public User User { get; set; }
 
-		public int RouteId { get; set; }
-		public Route Route { get; set; }
+		public int CourseId { get; set; }
+		public Course Course { get; set; }
 
 		[Column("Date_From", TypeName = "date")]
 		public DateTime DateFrom { get; set; }

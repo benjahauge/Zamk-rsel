@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Zamkørsel.Models
 {
-    public partial class Route
+    public partial class Course
     {
 	    [Key]
-	    public int RouteId { get; set; }
+	    public int CourseId { get; set; }
 
 	    [ForeignKey("User")]
 	    public int UserId { get; set; }
